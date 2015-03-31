@@ -38,18 +38,19 @@ public class MainStart {
             //
             System.out.println(System.getProperty("user.dir"));
             WebAppContext webAppContext = new WebAppContext();
-            FileSystemResource webappFile = new FileSystemResource("car-web/src/main/webapp/");
+            FileSystemResource webappFile = new FileSystemResource("src/main/webapp/");
             if (!webappFile.exists())
             {
-                String path=System.getProperty("user.dir");
-                webappFile = new FileSystemResource(path+"car-web/src/main/webapp/");
-                System.out.println("mch-web start sucess!1");
+                //String path=System.getProperty("user.dir");
+                webappFile = new FileSystemResource("car-web/src/main/webapp/");
+                System.out.println("start 1!");
             }
             if (!webappFile.exists())
             {
                 System.out.println("mch-web start sucess!2");
                 throw new Exception("webapp path is wrong!");
             }
+            System.out.println("mch-web start sucess!2");
             webAppContext.setResourceBase(webappFile.getFile().getCanonicalPath());
             webAppContext.setInitParameter("org.eclipse.jetty.servlet.Default.dirAllowed", "false");
             webAppContext.setInitParameter("org.eclipse.jetty.servlet.Default.redirectWelcome", "false");
