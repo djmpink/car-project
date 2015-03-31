@@ -29,30 +29,30 @@
         <servlet-name>springServlet</servlet-name>
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>springServlet</servlet-name>
-        <url-pattern>*.htm</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>springServlet</servlet-name>
-        <url-pattern>*.html</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>springServlet</servlet-name>
-        <url-pattern>*.json</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>springServlet</servlet-name>
-        <url-pattern>*.pdf</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>springServlet</servlet-name>
-        <url-pattern>*.jpg</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>springServlet</servlet-name>
-        <url-pattern>index.htm</url-pattern>
-    </servlet-mapping>
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>springServlet</servlet-name>-->
+        <!--<url-pattern>*.htm</url-pattern>-->
+    <!--</servlet-mapping>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>springServlet</servlet-name>-->
+        <!--<url-pattern>*.html</url-pattern>-->
+    <!--</servlet-mapping>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>springServlet</servlet-name>-->
+        <!--<url-pattern>*.json</url-pattern>-->
+    <!--</servlet-mapping>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>springServlet</servlet-name>-->
+        <!--<url-pattern>*.pdf</url-pattern>-->
+    <!--</servlet-mapping>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>springServlet</servlet-name>-->
+        <!--<url-pattern>*.jpg</url-pattern>-->
+    <!--</servlet-mapping>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>springServlet</servlet-name>-->
+        <!--<url-pattern>index.htm</url-pattern>-->
+    <!--</servlet-mapping>-->
 
     <welcome-file-list>
         <welcome-file>index.htm</welcome-file>

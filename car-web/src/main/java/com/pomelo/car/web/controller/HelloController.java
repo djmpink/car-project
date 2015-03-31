@@ -20,33 +20,31 @@ import java.util.Map;
 public class HelloController {
 
     // http://127.0.0.1:8081/hello.do?name=zl
+//    @RequestMapping(value = "hello.do", method = RequestMethod.GET)
+//    public void hello(HttpServletResponse response,String name) throws IOException {
+//        System.out.println("Hello spring MVC！");
+//        Map map=new HashMap<String,String>();
+//        map.put("name1","lizuoqing");
+//        map.put("name2",name);
+//        response.getWriter().println(map);
+//        response.getWriter().close();
+//    }
+    User user =new User();
     @RequestMapping(value = "hello.do", method = RequestMethod.GET)
-    public void hello(HttpServletResponse response,String name) throws IOException {
+    @ResponseBody
+    public User hello(){
         System.out.println("Hello spring MVC！");
-        Map map=new HashMap<String,String>();
-        map.put("name1","lizuoqing");
-        map.put("name2",name);
-        response.getWriter().println(map);
-        response.getWriter().close();
+
+        user.setAge(20);
+        user.setName("zl");
+        return user;
     }
 
-//    @RequestMapping(value = "hello.do", method = RequestMethod.GET)
-//    @ResponseBody
-//    public User hello(){
-//        System.out.println("Hello spring MVC！");
-//
-//        //String jsonString = JSON.toJSONString(person, SerializerFeature.PrettyFormat);
-//
-////        JSONObject jsonObject =new JSONObject();
-////        jsonObject.put("name", "zhoul");
-////        jsonObject.put("age",26);
-//
-//        User user =new User();
-//        user.setAge(20);
-//        user.setName("zl");
-//        return user;
-//    }
+    public User getUser() {
+        return user;
+    }
 
-
-
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
