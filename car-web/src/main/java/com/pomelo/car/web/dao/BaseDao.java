@@ -1,11 +1,9 @@
 package com.pomelo.car.web.dao;
 
-import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,25 +16,25 @@ import org.apache.commons.dbutils.handlers.MapHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.apache.log4j.Logger;
 
-import com.mysql.jdbc.ResultSetMetaData;
-import com.mysql.jdbc.Statement;
-import com.pomelo.duoduo.db.ConnectionManager;
-import com.pomelo.duoduo.db.GenBeanProcess;
-import com.pomelo.duoduo.dbutils.handlers.MapBeanColumnHandler;
-import com.pomelo.duoduo.dbutils.handlers.MapBeanHandler;
-import com.pomelo.duoduo.dbutils.handlers.MapListBeanColumnHandler;
-import com.pomelo.duoduo.dbutils.handlers.MapListBeanHandler;
-import com.pomelo.duoduo.utils.DBUtil;
+import com.pomelo.car.web.db.ConnectionManager;
+import com.pomelo.car.web.db.GenBeanProcess;
+import com.pomelo.car.web.dbutils.handlers.MapBeanColumnHandler;
+import com.pomelo.car.web.dbutils.handlers.MapBeanHandler;
+import com.pomelo.car.web.dbutils.handlers.MapListBeanColumnHandler;
+import com.pomelo.car.web.dbutils.handlers.MapListBeanHandler;
 
 public class BaseDao<T> {
 	//new
 	public static final String COUNT_FIELD = "total";
-	private Class<T> type;
+	protected Class<T> type;
 	public ConnectionManager connManager;
 	protected Logger log  = Logger.getLogger(this.getClass());
-	//public Logger log;
 
-	public BaseDao(Class<T> type) {
+	public BaseDao(){
+		log = Logger.getLogger(this.getClass());
+	}
+	
+	/*public BaseDao(Class<T> type) {
 		this(type, ConnectionManager.CONFIG_FILE_LOCATION);
 		
 	}
@@ -45,7 +43,7 @@ public class BaseDao<T> {
 		log = Logger.getLogger(this.getClass());
 		this.type = type;
 		connManager = ConnectionManager.getInstance(configFile);
-	}	
+	}	*/
 
 	/**
 	 * 数据查询基础方法，所有的查询最终都是调用到该方法上
@@ -64,6 +62,7 @@ public class BaseDao<T> {
 		E result = null;
 		QueryRunner qr = new QueryRunner();
 		try {
+			System.out.println("qr=="+qr+",connManager==="+connManager.getConnection()+",handler=="+handler);
 			result = qr.query(connManager.getConnection(), sql, handler, params);
 //			qr.query(conn, sql, params, rsh)
 		} catch (SQLException e) {
@@ -123,7 +122,7 @@ public class BaseDao<T> {
 	 * @return
 	 */
 	protected <E> List<E> findListForBean(Class<E> type, String sql, Object... params) {
-
+		System.out.println("type =="+type+",params="+params);
 		return find(sql, new BeanListHandler<E>(type, new BasicRowProcessor(new GenBeanProcess())), params);
 	}
 	
@@ -494,109 +493,17 @@ public class BaseDao<T> {
 		}
 		return flag;
 	}
-	
-	
-	//---------------------------old---------------------------
-	protected static Connection conn=null;
-	protected static PreparedStatement ps = null;
-	protected static ResultSet rs = null;
-	
-	
-	/**
-	 * 将bean对象插入到数据库
-	 */
-	public int insertBean(Class clazz, Object obj) {  
-        if (obj == null || clazz.getSimpleName().equals(obj.getClass().getName())) { 
-            return -1;  
-        }
-        Field[] fields = obj.getClass().getDeclaredFields();  
-        int fieldSize = fields.length;  
-        String tableName = clazz.getSimpleName().toLowerCase();// 表名  
-        String[] types1 = { "int", "java.lang.String", "boolean", "char", "float", "double", "long", "short", "byte" };  
-        String[] types2 = { "Integer","java.lang.Integer", "java.lang.String", "java.lang.Boolean","java.lang.Character", "java.lang.Float", "java.lang.Double","java.lang.Long", "java.lang.Short", "java.lang.Byte" };  
-  
-        StringBuffer sql = new StringBuffer("insert into " + tableName  + " values (");  
-        for (int i = 0; i < fieldSize; i++) {  
-            sql.append(" ?,");  
-        }  
-        sql.deleteCharAt(sql.length() - 1);  
-        sql.append(")");  
-        log.info(sql);
-        int id = -1;
-        try {  
-        	conn = DBUtil.getConnection();
-            ps = conn.prepareStatement(sql.toString(),Statement.RETURN_GENERATED_KEYS);
-            for (int j = 0; j < fieldSize; j++) {  
-                fields[j].setAccessible(true);  
-                for (int i = 0; i < types1.length; i++) {  
-                    if (fields[j].getType().getName().equalsIgnoreCase(types1[i])||fields[j].getType().getName().equalsIgnoreCase(types2[i])) {  
-                        if (fields[j].get(obj) != null&& !"".equals(fields[j].get(obj))&& !"null".equals(fields[j].get(obj))) {  
-                            ps.setObject(j + 1, fields[j].get(obj));  
-                        } else {  
-                            ps.setObject(j + 1, null);  
-                        }  
-                    }  
-                }  
-            }  
-            
-            System.out.println(ps.toString());  
-            ps.executeUpdate();  
-            rs = ps.getGeneratedKeys();
-			if(rs.next()){
-				id=rs.getInt(1);
-				log.info("id : "+id);
-			}
-            //conn.commit();  
-			DBUtil.close(conn);
-        } catch (Exception e1) {  
-            e1.printStackTrace();  
-        }  
-        return id;
-    }  
-	
-	
-    /**
-     * 通过缓存结果集构造对象列表
-     * @param <T>
-     * @param clazz javaBean类
-     * @param crs   缓存结果集
-     * @return 对象列表
-     */
-    public static <E> List<E> getBeanList(Class<E> clazz){
-         
-        List<Object> result = new ArrayList<Object>();
-        try {
-            ResultSetMetaData md = (ResultSetMetaData) rs.getMetaData();
-            int columnCount = md.getColumnCount();
-            Object o = null;
-            while (rs.next()) {
-                 o = clazz.newInstance();
-                for (int i = 1; i <= columnCount; i++) {
-                    if(rs.getObject(i) == null){
-                        continue ;
-                    }
-                    md.getColumnType(i);
-                    String className = md.getColumnClassName(i);
-                    if("java.sql.Timestamp".equals(className) || "java.sql.Date".equals(className)){
-                        className = "java.util.Date" ;
-                    }else if("java.sql.Time".equals(className)){
-                        className = "java.lang.String" ;
-                    }else if("java.lang.Byte".equals(className) || "java.lang.Short".equals(className)){
-                        className = "java.lang.Integer" ;
-                    }
-                    String methodName = "set"+md.getColumnName(i).substring(0,1).toUpperCase() + md.getColumnName(i).substring(1);
-                    try{
-                        clazz.getMethod(methodName,Class.forName(className)).invoke(o, rs.getObject(i));
-                    }catch(NoSuchMethodException e){
-                        continue;
-                    }
-                }
-                result.add(o);
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return  (List<E>) result;
-    }
+
+	public void setConnManager(ConnectionManager connManager) {
+		this.connManager = connManager;
+	}
+
+	public ConnectionManager getConnManager() {
+		return connManager;
+	}
+
+	public void setType(Class<T> type) {
+		this.type = type;
+	}
 
 }
