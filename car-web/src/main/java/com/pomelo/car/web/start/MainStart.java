@@ -3,6 +3,8 @@ package com.pomelo.car.web.start;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.eclipse.jetty.xml.XmlConfiguration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 
@@ -15,7 +17,7 @@ import java.util.Properties;
  * Created by zl on 2015/3/31.
  */
 public class MainStart {
-
+    private static final Logger logger = LoggerFactory.getLogger(MainStart.class);
     public static void main(String[] args)  throws Exception{
         try {
             Server server = new Server();
@@ -30,24 +32,24 @@ public class MainStart {
             Map<String, String> props = new HashMap<String, String>();
             for (Object key : p.keySet()) {
                 props.put(key.toString(), String.valueOf(p.get(key)));
-                System.out.println(String.valueOf(p.get(key)));
+                logger.info(String.valueOf(p.get(key)));
             }
             xmlConfig.getProperties().putAll(props);
             xmlConfig.configure();
             xmlConfig.configure(server);
             //
-            System.out.println(System.getProperty("user.dir"));
+            logger.info(System.getProperty("user.dir"));
             WebAppContext webAppContext = new WebAppContext();
             FileSystemResource webappFile = new FileSystemResource("src/main/webapp/");
             if (!webappFile.exists())
             {
                 //String path=System.getProperty("user.dir");
                 webappFile = new FileSystemResource("car-web/src/main/webapp/");
-                System.out.println("start 1!");
+                logger.info("start 1!");
             }
             if (!webappFile.exists())
             {
-                System.out.println("mch-web start sucess!2");
+                logger.info("mch-web start sucess!2");
                 throw new Exception("webapp path is wrong!");
             }
             System.out.println("mch-web start sucess!2");
@@ -59,11 +61,11 @@ public class MainStart {
             webAppContext.setWelcomeFiles(new String[]{"index.htm"});
             server.setHandler(webAppContext);
             server.start();
-            System.out.println("mch-web start sucess!");
+            logger.info("Jetty Start Sucess!");
             server.join();
 
         } catch (Exception e) {
-            System.out.println("mch-web start fail!");
+            logger.info("Jetty Start Fail!");
             System.exit(0);
         }
     }
