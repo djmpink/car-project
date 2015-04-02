@@ -57,4 +57,10 @@
 	   
 	   <bean id = "userDao" class="com.pomelo.car.web.dao.UserDao" parent="baseDao">	
 	   </bean>
+	   
+	    <bean id = "carService" class="com.pomelo.car.web.service.CarService">
+	   </bean>
+	   
+	   <bean id = "carDao" class="com.pomelo.car.web.dao.CarDao" parent="baseDao">	
+	   </bean>
 </beans>
