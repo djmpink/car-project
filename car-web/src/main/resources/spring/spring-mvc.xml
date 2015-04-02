@@ -25,4 +25,28 @@
     </bean>
     <mvc:annotation-driven/>
 
+    <!-- velocity解析器,替换掉原来的jsp -->
+    <bean id="velocityConfigurer" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+        <property name="resourceLoaderPath">
+            <value>WEB-INF/velocity/</value>
+        </property>
+        <property name="velocityProperties">
+            <props>
+                <prop key="input.encoding">UTF-8</prop>
+                <prop key="output.encoding">UTF-8</prop>
+                <prop key="contentType">text/html;charset=UTF-8</prop>
+                <prop key="velocimacro.library">macro/macros.vm</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+        <property name="contentType" value="text/html;charset=UTF-8" />
+        <property name="prefix" value="/" /><!-- 视图文件的前缀，即存放的路径 -->
+        <property name="suffix" value=".vm" />
+    </bean>
 </beans>
+
+
+
+
+

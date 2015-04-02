@@ -12,5 +12,6 @@
 </head>
 <body>
   <h2>Hello SpringMVC</h2>
+  <a href="toPage.htm">To Page</a>
 </body>
 </html>

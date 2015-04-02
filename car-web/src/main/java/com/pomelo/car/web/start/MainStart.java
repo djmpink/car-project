@@ -58,7 +58,7 @@ public class MainStart {
             webAppContext.setInitParameter("org.eclipse.jetty.servlet.Default.redirectWelcome", "false");
             webAppContext.setInitParameter("org.eclipse.jetty.servlet.Default.welcomeServlets", "exact");
             webAppContext.setContextPath("/");
-            webAppContext.setWelcomeFiles(new String[]{"index.htm"});
+            webAppContext.setWelcomeFiles(new String[]{"index.html"});
             server.setHandler(webAppContext);
             server.start();
             logger.info("Jetty Start Sucess!");
