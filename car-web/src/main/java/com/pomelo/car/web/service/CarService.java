@@ -15,6 +15,10 @@ public class CarService {
 	public List<Car> findCarList(String brandId){
 		return carDao.findListByBrandId(brandId);
 	}
+	
+	public List<Car> searchCars(String keyWords){
+		return carDao.findCarsBySearchName(keyWords);
+	}
 
 	public void setCarDao(CarDao carDao) {
 		this.carDao = carDao;

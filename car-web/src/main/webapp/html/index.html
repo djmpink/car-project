@@ -17,6 +17,12 @@
     <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+<script type="text/javascript">
+  function search(){
+   var test = document.getElementById("search").value;
+   window.location.href='/search.do?keyWords='+test;
+  }
+ </script>
 </head>
 <body>
 <header>
@@ -28,9 +34,9 @@
     <div class="row search_div">
         <div class="input_left"></div>
         <div class="input_center">
-            <input type="search" id="search" placeholder="试试车名？">
+            <input type="search" id="search" placeholder="试试车名？" >
         </div>
-        <div class="input_right"></div>
+        <div class="input_right" onclick="search()"></div>
 
     </div>
     <div class="row brand-row">

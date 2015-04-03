@@ -43,8 +43,19 @@ public class CarController {
 			//TODO
 		}
 		map.put("cars", cars);
-		System.out.println("111111111"+cars.size());
 		return "Brand";
 		
 	}
+	
+	@RequestMapping(value = "search.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String searchCars(String keyWords ,HttpServletRequest request,ModelMap map){
+		List<Car> cars = carService.searchCars(keyWords);
+		if(cars == null || cars.isEmpty()){
+			//TODO
+		}
+		map.put("cars", cars);
+		return "Brand";
+		
+	}
+	
 }
