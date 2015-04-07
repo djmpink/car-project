@@ -20,6 +20,10 @@ public class CarService {
 		return carDao.findCarsBySearchName(keyWords);
 	}
 
+	public Car getCarDetail(int id){
+		return carDao.findCarsDetailById(id);
+	}
+
 	public void setCarDao(CarDao carDao) {
 		this.carDao = carDao;
 	}

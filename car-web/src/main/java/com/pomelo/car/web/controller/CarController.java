@@ -57,5 +57,15 @@ public class CarController {
 		return "Brand";
 		
 	}
-	
+
+	@RequestMapping(value = "getCarDetail.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String getCarDetail(int id ,ModelMap map){
+		Car car = carService.getCarDetail(id);
+		if(car == null){
+			//TODO
+		}
+		map.put("car", car);
+		return "CarDetail";
+
+	}
 }

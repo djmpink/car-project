@@ -65,12 +65,12 @@ public class HelloController {
      */
     @RequestMapping(value = "old.do", method = RequestMethod.GET)
     public void hello(HttpServletResponse response,String name) throws IOException {
-    System.out.println("Hello spring MVC！");
-    Map map=new HashMap<String,String>();
-    map.put("name1","lizuoqing");
-    map.put("name2",name);
-    response.getWriter().println(map);
-    response.getWriter().close();
+        System.out.println("Hello spring MVC！");
+        Map map=new HashMap<String,String>();
+        map.put("name1","lizuoqing");
+        map.put("name2",name);
+        response.getWriter().println(map);
+        response.getWriter().close();
     }
 
 }

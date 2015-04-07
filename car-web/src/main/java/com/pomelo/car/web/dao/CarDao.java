@@ -19,4 +19,8 @@ public class CarDao extends BaseDao<Car> {
 		String sql ="SELECT c.id AS id, c.`name` AS `name`, c.icon AS icon, c.brandId AS brandId, c.detail AS detail FROM Car_CarInfo AS c WHERE c.`name` LIKE ?";
 		return getList(sql, "%"+keyWords+"%");
 	}
+	public Car findCarsDetailById(int id){
+		String sql="SELECT c.id, c.name, c.icon, c.brandId, c.detail, c.addTime, c.isValid FROM Car_CarInfo AS c WHERE c.id=? ";
+		return findForBean(Car.class,sql,id);
+	}
 }
