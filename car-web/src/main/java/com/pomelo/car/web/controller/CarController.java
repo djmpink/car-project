@@ -28,7 +28,7 @@ public class CarController {
 			//TODO
 		}
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("Brand");
+		modelAndView.setViewName("brand");
 		modelAndView.addObject(cars);
 		//System.out.println();
 		return modelAndView;
@@ -42,7 +42,7 @@ public class CarController {
 		
 		map.put("cars", cars);
 		map.put("brandId", brandId);
-		return "Brand";
+		return "brand";
 		
 	}
 	
@@ -53,7 +53,7 @@ public class CarController {
 			//TODO
 		}
 		map.put("cars", cars);
-		return "Brand";
+		return "brand";
 		
 	}
 
