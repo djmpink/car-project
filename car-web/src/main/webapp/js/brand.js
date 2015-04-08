@@ -10,7 +10,18 @@ $(function(){
     $(".input_center").width(sRest);
     $("#search").width(sRest);
 
-
+    
     //获取数据
-    Pomelo.getData();
+    //Pomelo.getData();
+    getBrandName();
 });
+
+function getBrandName() {
+	var value = ["全国品牌","中国品牌","中国品牌","中国品牌"];
+	
+	var id =  $("#title").attr("value");
+	$("#title").text(value[id]);
+	//alert("id = " + value[id]);
+	
+}
+

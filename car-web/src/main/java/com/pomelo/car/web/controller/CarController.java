@@ -39,10 +39,9 @@ public class CarController {
 	public String getBrandList(String brandId ,HttpServletRequest request,ModelMap map){
 		
 		List<Car> cars = carService.findCarList(brandId);
-		if(cars == null || cars.isEmpty()){
-			//TODO
-		}
+		
 		map.put("cars", cars);
+		map.put("brandId", brandId);
 		return "Brand";
 		
 	}
@@ -65,7 +64,7 @@ public class CarController {
 			//TODO
 		}
 		map.put("car", car);
-		return "CarDetail";
+		return "detail";
 
 	}
 }

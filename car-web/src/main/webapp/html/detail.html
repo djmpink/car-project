@@ -9,7 +9,6 @@
 
     <!-- Bootstrap -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/index.css" rel="stylesheet">
     <link href="../css/brand.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -17,34 +16,22 @@
     <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
 </head>
-<script type="text/javascript">
-  function getDeatil(id){
-   window.location.href='/getCarDetail.do?id='+id;
-  }
- </script>
 <body>
 <div>
-    <div class="col-xs-4 brandHead" id="brandBack">
+    <div class="col-xs-4 brandHead" id="brandBack" onclick="javascript :history.back(-1);">
         <div class="triangle-right"></div>
-        首页
+        返回
     </div>
-    <div class="col-xs-8 brandHead"><div class="triangle-left"></div><p id="title" value = "$brandId"></p></div>
+    <div class="col-xs-8 brandHead"><div class="triangle-left"></div>$car.name</div>
 </div>
 <div>
-	#foreach( $car in $cars)
-	<div class="row c1" onclick="getDeatil($car.id)">
-        <div class="col-xs-3 " ><img src="../images/car_logo/guangqi_0_1.jpg"></div>
-        <div class="col-xs-7 brandWord c2" ><div class="triangle-left"></div>$car.name</div>
-        <div class="col-xs-2 "><span class="glyphicon glyphicon-chevron-right brandImg" aria-hidden="true"></span></div>
+    <div class="row">
+        <div class="col-xs-12  " ><img src="../images/car_logo/$car.icon" class="detailImg"></div>
     </div>
-	#end 
-    
+    <div class="row" >
+        <div class="col-xs-12 detailWord c2"><div class="triangle-left"></div>$car.detail</div>
+    </div>
 </div>
-
-<script src="../js/jquery-2.1.3.min.js"></script>
-<script src="../js/brand.js"></script>
-
 </body>
 </html>
