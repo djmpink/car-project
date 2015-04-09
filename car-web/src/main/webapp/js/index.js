@@ -12,7 +12,15 @@ $(function(){
     $(".input_center").width(sRest);
     $("#search").width(sRest);
 
-
+    //搜索点击
+    $("#searchBtn").on("click",function(){
+        var val = $("#search").val();
+        if(!val){
+            alert("请输入搜索关键字");
+            return;
+        }
+        window.location.href='/search.do?keyWords='+val;
+    });
     //获取数据
     Pomelo.getData();
 });

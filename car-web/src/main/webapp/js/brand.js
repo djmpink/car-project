@@ -10,9 +10,6 @@ $(function(){
     $(".input_center").width(sRest);
     $("#search").width(sRest);
 
-    
-    //获取数据
-    //Pomelo.getData();
     getBrandName();
 });
 
