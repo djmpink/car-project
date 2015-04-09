@@ -20,14 +20,14 @@
 <body>
 <div>
     <div class="col-xs-4 brandHead" id="brandBack" onclick="javascript :history.back(-1);">
-        <div class="triangle-right"></div>
+        
         返回
     </div>
     <div class="col-xs-8 brandHead"><div class="triangle-left"></div>$car.name</div>
 </div>
 <div>
     <div class="row">
-        <div class="col-xs-12  " ><img src="../images/car_logo/$car.icon" class="detailImg"></div>
+        <div class="col-xs-12  " ><img src="../images/car_logo/$car.icon" onerror="this.src='../images/car_logo/guangqi_0_1.jpg'" class="detailImg"></div>
     </div>
     <div class="row" >
         <div class="col-xs-12 detailWord c2"><div class="triangle-left"></div>$car.detail</div>
